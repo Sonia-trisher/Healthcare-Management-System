@@ -4,11 +4,14 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 import org.example.healthcare.doctor.Doctor;
 import org.example.healthcare.patient.Patient;
 
 import java.time.LocalDateTime;
-
+@Getter
+@Setter
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +23,7 @@ public class Appointment {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private AppointmentStatus status;
+    private AppointmentStatus Status;
 
     public enum AppointmentStatus {
         SCHEDULED,
@@ -40,7 +43,7 @@ public class Appointment {
 
 
     @Column(unique = true)
-    private String note;
+    private String notes;
 
 
 
