@@ -1,34 +1,49 @@
 package org.example.healthcare.user;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.example.healthcare.config.JwtUtil;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public User register(RegisterRequest request) {
+        User user = new User();
+        user.setFirstName(request.getFirstName());
+        user.setEmail(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+       return userRepository.save(user);
+
+//        String token = jwtUtil.generateToken(user.getEmail());
+//
+//        return new AouthController(token);
     }
 
-   public List<User> selectAll(){
-      return userRepository.findAll();
-   }
+    public String login(LoginRequest request) {
+        User user = userRepository.findByUsername(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-    public User createTask(User user) {
-        return  userRepository.save(user);
-    }
+        boolean passwordMatches = passwordEncoder.matches(request.getPassword(), user.getPassword());
 
-    public User updateUser(Long id , User updatedUser) {
-        var user =  userRepository.findById(id).orElseThrow(()-> new RuntimeException("task not found"));
-        user.setFirstName(updatedUser.getFirstName());
-        user.setLastName(updatedUser.getLastName());
-        user.setEmail(updatedUser.getEmail());
-        user.setPhone(updatedUser.getPhone());
-        user.setDate_of_birth(updatedUser.getDate_of_birth());
-        return userRepository.save(user);
+        if (!passwordMatches) {
+            throw new RuntimeException("Wrong password");
+        }
+
+        String token = jwtUtil.generateToken(user.getEmail());
+
+        return token;
     }
 
 }
