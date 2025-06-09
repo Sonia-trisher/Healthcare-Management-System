@@ -12,6 +12,7 @@ import org.example.healthcare.patient.Patient;
 import java.time.LocalDateTime;
 @Getter
 @Setter
+@Entity
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,13 +34,14 @@ public class Appointment {
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
-    @JsonBackReference
+    @JsonBackReference("appointments-patient")
     private Patient patient;
 
     @ManyToOne
-    @JoinColumn(name = "doctor_id")
-    @JsonBackReference
+    @JoinColumn(name = "doctor_id", nullable = false)
+    @JsonBackReference("doctor-appointments")
     private Doctor doctor;
+
 
 
     @Column(unique = true)

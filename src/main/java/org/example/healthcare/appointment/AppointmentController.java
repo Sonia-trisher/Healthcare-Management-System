@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/appointments")
 @RequiredArgsConstructor
 public class AppointmentController {
     private final AppointmentService appointmentService;
@@ -35,13 +35,13 @@ public class AppointmentController {
         Appointment appointment = appointmentService.findAppointmentById(id);
         return new ResponseEntity<>( appointment,HttpStatus.OK);
     }
-    @PutMapping
+    @PutMapping("/id")
     @Operation(summary = " Update an appointment")
     public ResponseEntity<Appointment> updateAppointment(@PathVariable Long id ,@RequestBody AppointmentDtoo dtoo){
         Appointment appointment = appointmentService.updateAppointment(id, dtoo);
         return new ResponseEntity<>(appointment, HttpStatus.OK);
     }
-    @DeleteMapping
+    @DeleteMapping("/id")
     @Operation(summary = " Delete an appointment")
     public ResponseEntity<Appointment> deleteAppointment(@PathVariable Long id){
         appointmentService.deleteAppointment(id);
