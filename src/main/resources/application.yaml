@@ -1,8 +1,8 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/Healthcare+Appointment+System
-    password: Ineza2005
+    url: jdbc:postgresql:/mysql:/localhost:3306/Healthcare_managment_system
+    password: Alice@123
     username: postgres
   jpa:
     hibernate:
