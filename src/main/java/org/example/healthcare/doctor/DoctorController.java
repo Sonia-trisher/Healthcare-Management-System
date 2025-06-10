@@ -22,7 +22,7 @@ public class DoctorController {
     public List<Doctor> getAll(){
         return doctorService.getAll();
     }
-    @GetMapping
+    @GetMapping("{/id}")
     @Operation(summary = "/get/doctors/by/id")
     public Doctor getById(@PathVariable long id){
         return doctorService.getById(id);
@@ -32,12 +32,12 @@ public class DoctorController {
      public  Doctor create(Doctor doctor){
         return doctorService.create(doctor);
      }
-     @PatchMapping
+     @PatchMapping("/update/{/id}")
      @Operation(summary = "/update/doctors")
      public  Doctor update( @PathVariable long id ,DoctorDto doctorDto){
         return doctorService.update(id, doctorDto);
      }
-     @DeleteMapping
+     @DeleteMapping("/delete/{/id}")
      @Operation(summary = "/delete/doctor/by/id")
      public Doctor deleteById(@PathVariable  long id){
         return doctorService.delete(id);
