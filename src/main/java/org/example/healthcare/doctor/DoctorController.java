@@ -10,7 +10,8 @@ import java.util.List;
 @RequestMapping("/api/doctors")
 
 
-public class DoctorController {
+public class
+DoctorController {
 
     private final DoctorService doctorService;
     @Autowired

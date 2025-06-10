@@ -44,9 +44,14 @@ public class AppointmentService {
     public Appointment updateAppointment(Long id,AppointmentDtoo dtoo){
         Appointment appointmentToUpdate = appointmentRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Appointment not found"));
+     appointmentToUpdate.setStatus(dtoo.getStatus());
+        appointmentToUpdate.setNotes(dtoo.getNotes());
         return appointmentRepository.save(appointmentToUpdate);
 
     }
+
+
+
     public void deleteAppointment(Long id){
         appointmentRepository.deleteById(id);
     }
