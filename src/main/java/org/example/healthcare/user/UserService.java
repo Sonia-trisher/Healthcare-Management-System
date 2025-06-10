@@ -32,7 +32,7 @@ public class UserService {
     }
 
     public String login(LoginRequest request) {
-        User user = userRepository.findByUsername(request.getEmail())
+        User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         boolean passwordMatches = passwordEncoder.matches(request.getPassword(), user.getPassword());
