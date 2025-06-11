@@ -13,7 +13,7 @@ import java.util.Date;
 @Service
 public class JwtUtil {
 
-    private final String secret = "secret";
+    private final String secret = "secre983239842iejwdoijedwe9203i4234ijdwoeijwd092i340234joiwdjeowj029i34203djowidt";
 
     public String generateToken(String username) {
          return Jwts.builder().setSubject(username)
