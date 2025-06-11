@@ -32,7 +32,6 @@ public class Patient {
     private String phone;
     @Column(nullable = false,unique = true)
     private String email;
-    @Column(nullable = false)
     @Past(message = "date of birth must be iin past")
     private LocalDate dateOfBirth;
 
