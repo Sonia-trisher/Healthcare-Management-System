@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/clinics")
-@SecurityRequirement(name = "auth")
+@SecurityRequirement(name = "auth") // swagger config
 public class ClinicController {
 
     private final ClinicService clinicService;
