@@ -1,6 +1,7 @@
 package org.example.healthcare.doctor;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/doctors")
+@SecurityRequirement(name = "auth")
 public class DoctorController {
 
     private final DoctorService doctorService;
