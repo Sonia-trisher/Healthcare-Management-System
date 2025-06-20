@@ -9,8 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class MedicalRecordDtoo {
-    Long patientId;
-    Long doctorId;
+
     @Length(message = "you can't exceed 255 characters", max = 255)
     private String diagnosis;
 

@@ -33,14 +33,14 @@ public class DoctorController {
 
     @PostMapping
     @Operation(summary = "Insert doctor")
-    public Doctor create(@RequestBody Doctor doctor) {
-        return doctorService.create(doctor);
+    public Doctor create(@RequestBody DoctorDto dtoo) {
+        return doctorService.create(dtoo);
     }
 
     @PatchMapping("/update/{id}")
     @Operation(summary = "Update doctor")
-    public Doctor update(@PathVariable long id, @RequestBody DoctorDto doctorDto) {
-        return doctorService.update(id, doctorDto);
+    public Doctor update(@PathVariable long id, @RequestBody DoctorDto dto) {
+        return doctorService.update(id, dto);
     }
 
     @DeleteMapping("/delete/{id}")

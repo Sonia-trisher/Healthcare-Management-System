@@ -36,14 +36,14 @@ public class ClinicController {
 
 
     @PostMapping
-    public Clinic createClinic(@RequestBody Clinic clinic) {
-        return clinicService.create(clinic);
+    public Clinic createClinic(@RequestBody ClinicDto dtoo) {
+        return clinicService.create(dtoo);
     }
 
 
     @PutMapping("/{id}")
-    public Clinic updateClinic(@PathVariable long id, @RequestBody ClinicDto clinicDto) {
-        return clinicService.update(id, clinicDto);
+    public Clinic updateClinic(@PathVariable long id, @RequestBody ClinicDto dtoo) {
+        return clinicService.update(id, dtoo);
     }
 
 

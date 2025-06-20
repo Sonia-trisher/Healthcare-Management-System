@@ -20,32 +20,32 @@ public class AppointmentController {
 
     @PostMapping
     @Operation(summary = "Create an appointment.")
-    public ResponseEntity<Appointment> createAppointment(@RequestBody AppointmentDtoo Dtoo){
-        Appointment appointment = appointmentService.createAppointment(Dtoo);
+    public ResponseEntity<Appointment> createAppointment(@RequestBody AppointmentDtoo Dtoo , @RequestParam long patientId , @RequestParam long doctorId){
+        Appointment appointment = appointmentService.createAppointment(Dtoo , patientId , doctorId);
         return new ResponseEntity<>(appointment, HttpStatus.CREATED);
     }
     @GetMapping
-    @Operation(summary = "Get all appointments filted by patient ,doctor,appointmentDate")
-    public ResponseEntity<List<Appointment>> findAllAppointments(@RequestBody Long patientId, @RequestBody Long doctorId, @RequestBody LocalDateTime date){
-        List<Appointment> appointments = appointmentService.findAllAppointments(patientId, doctorId, date);
+    @Operation(summary = "Get all appointments ")
+    public ResponseEntity<List<Appointment>> findAllAppointments(){
+        List<Appointment> appointments = appointmentService.findAllAppointments();
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
 
     @GetMapping("/id")
     @Operation(summary = "Get an appointment by ID")
-    public ResponseEntity<Appointment> findAppointmentById(@PathVariable Long id){
+    public ResponseEntity<Appointment> findAppointmentById(@RequestParam Long id){
         Appointment appointment = appointmentService.findAppointmentById(id);
         return new ResponseEntity<>( appointment,HttpStatus.OK);
     }
     @PutMapping("/id")
     @Operation(summary = " Update an appointment")
-    public ResponseEntity<Appointment> updateAppointment(@PathVariable Long id ,@RequestBody AppointmentDtoo dtoo){
+    public ResponseEntity<Appointment> updateAppointment(@RequestParam Long id ,@RequestBody AppointmentDtoo dtoo){
         Appointment appointment = appointmentService.updateAppointment(id, dtoo);
         return new ResponseEntity<>(appointment, HttpStatus.OK);
     }
     @DeleteMapping("/id")
     @Operation(summary = " Delete an appointment")
-    public ResponseEntity<Appointment> deleteAppointment(@PathVariable Long id){
+    public ResponseEntity<Appointment> deleteAppointment(@RequestParam Long id){
         appointmentService.deleteAppointment(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
