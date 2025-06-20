@@ -21,24 +21,31 @@ public class AppointmentService {
     private final DoctorRepository doctorRepository;
     private final PatientRepository patientRepository;
 
-    public Appointment createAppointment(AppointmentDtoo dtoo) {
-        Patient patient = patientRepository.findById(dtoo.getPatientId())
+    public Appointment createAppointment(AppointmentDtoo dtoo , long patientId , long doctorId) {
+
+        Patient patient = patientRepository.findById(patientId)
                 .orElseThrow(()->new RuntimeException("Patient not found"));
-        Doctor doctor = doctorRepository.findById(dtoo.getDoctorId())
+        Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(()->new RuntimeException("Doctor not found"));
         Appointment appointment = new Appointment();
         appointment.setStatus(dtoo.getStatus());
         appointment.setNotes(dtoo.getNotes());
         appointment.setAppointmentDate(dtoo.getAppointmentDate());
+
+        appointment.setPatient(patient);
+        appointment.setDoctor(doctor);
+
+        patient.getAppointments().add(appointment);
+        doctor.getAppointments().add(appointment);
         return appointmentRepository.save(appointment);
 
     }
 
-    public List<Appointment> findAllAppointments(Long patientId, Long doctorId, LocalDateTime appointmentDate){
-        return appointmentRepository.findAppointmentByPatientIdAndDoctorIdAndAppointmentDate(patientId, doctorId, appointmentDate);
+    public List<Appointment> findAllAppointments() {
+        return appointmentRepository.findAll();
     }
     public Appointment findAppointmentById(Long id){
-        return appointmentRepository.findById(id).orElseThrow();
+        return appointmentRepository.findById(id).orElseThrow(() -> new RuntimeException("Appointment not found"));
     }
 
     public Appointment updateAppointment(Long id,AppointmentDtoo dtoo){

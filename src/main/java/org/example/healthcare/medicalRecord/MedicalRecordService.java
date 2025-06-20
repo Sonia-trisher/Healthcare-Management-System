@@ -18,25 +18,34 @@ public class MedicalRecordService {
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
 
-    public MedicalRecord createMedicalRecord(MedicalRecordDtoo dtoo){
-        Patient patient = patientRepository.findById(dtoo.getPatientId())
+    public MedicalRecord createMedicalRecord(MedicalRecordDtoo dtoo,long patientId,long doctorId) {
+        Patient patient = patientRepository.findById(patientId)
                 .orElseThrow(()->new RuntimeException("Patient not found"));;
-        Doctor doctor = doctorRepository.findById(dtoo.getDoctorId())
+        Doctor doctor = doctorRepository.findById(doctorId)
                 .orElseThrow(()->new RuntimeException("Doctor not found"));
         MedicalRecord medicalRecord = new MedicalRecord();
         medicalRecord.setDiagnosis(dtoo.getDiagnosis());
         medicalRecord.setPrescription(dtoo.getPrescription());
         medicalRecord.setRecordDate(dtoo.getRecordDate());
+        medicalRecord.setPatient(patient);
+        medicalRecord.setDoctor(doctor);
+
+        patient.getMedicalRecords().add(medicalRecord);
+        doctor.getMedicalRecords().add(medicalRecord);
+
+
+
+
         return medicalRecordRepository.save(medicalRecord);
 
     }
 
-    public List<MedicalRecord> findAllMedicalRecord(Long patientId, Long doctorId){
-        return medicalRecordRepository.findByPatientIdAndDoctorId(patientId,doctorId);
+    public List<MedicalRecord> findAllMedicalRecord(){
+        return medicalRecordRepository.findAll();
 
     }
     public MedicalRecord FindMedicalRecordById(Long id){
-        return medicalRecordRepository.findById(id).orElseThrow();
+        return medicalRecordRepository.findById(id).orElseThrow(() -> new RuntimeException("Medical record not found"));
 
     }
     public MedicalRecord updateMedicalRecord(Long id, MedicalRecordDtoo dtoo){

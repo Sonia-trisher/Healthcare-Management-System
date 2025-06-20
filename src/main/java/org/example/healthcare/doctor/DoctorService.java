@@ -24,17 +24,20 @@ public class DoctorService {
     }
 
 
-    public Doctor create(Doctor doctor) {
+    public Doctor create(DoctorDto dtoo) {
+        Doctor doctor = new Doctor();
+        doctor.setFirstname(dtoo.getFirstname());
+        doctor.setLastname(dtoo.getLastname());
+        doctor.setSpeciality(dtoo.getSpeciality());
+        doctor.setEmail(dtoo.getEmail());
         return doctorRepository.save(doctor);
     }
 
 
-    public Doctor update(long id, DoctorDto doctorDto) {
+    public Doctor update(long id, DoctorDto dtoo) {
         Doctor doctor = doctorRepository.findById(id).orElseThrow();
-        doctor.setFirstname(doctorDto.getFirstname());
-        doctor.setLastname(doctorDto.getLastname());
-        doctor.setSpeciality(doctorDto.getSpeciality());
-        doctor.setEmail(doctorDto.getEmail());
+        doctor.setFirstname(dtoo.getFirstname());
+        doctor.setSpeciality(dtoo.getSpeciality());
         return doctorRepository.save(doctor);
     }
 
