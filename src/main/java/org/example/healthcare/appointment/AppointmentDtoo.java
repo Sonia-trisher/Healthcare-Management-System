@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 public class AppointmentDtoo {
+    private Long patientId;
     private LocalDateTime appointmentDate;
     @Enumerated(EnumType.STRING)
     private Appointment.AppointmentStatus status;
