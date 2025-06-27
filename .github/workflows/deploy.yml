@@ -3,7 +3,7 @@ name: Docker Hub CI/CD and Render Deployment
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
@@ -35,8 +35,8 @@ jobs:
       - name: Save build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: healthcare
-          path: target/healthcare-*.jar  # Use a wildcard to match the JAR file
+          name: healthCare
+          path: target/healthCare-*.jar  # Use a wildcard to match the JAR file
 
   docker:
     runs-on: ubuntu-latest
@@ -51,7 +51,7 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: healthcare
+          name: healthCare
           path: target
 
       # Login to Docker Hub
@@ -68,5 +68,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_HUB_USERNAME }}/healthcare:latest
-            ${{ secrets.DOCKER_HUB_USERNAME }}/healthcare:${{ github.sha }}
+            ${{ secrets.DOCKER_HUB_USERNAME }}/healthCare:latest
+            ${{ secrets.DOCKER_HUB_USERNAME }}/healthCare:${{ github.sha }}
