@@ -3,7 +3,7 @@ name: Docker Hub CI/CD and Render Deployment
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
