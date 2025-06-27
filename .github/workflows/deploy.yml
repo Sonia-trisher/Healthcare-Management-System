@@ -68,5 +68,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_HUB_USERNAME }}/healthCare:latest
-            ${{ secrets.DOCKER_HUB_USERNAME }}/healthCare:${{ github.sha }}
+            ${{ secrets.DOCKER_HUB_USERNAME }}/healthcare:latest
+            ${{ secrets.DOCKER_HUB_USERNAME }}/healthcare:${{ github.sha }}
